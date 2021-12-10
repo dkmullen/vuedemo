@@ -1,15 +1,6 @@
 <template>
 	<v-container>
 		<v-row class="text-center">
-			<v-col cols="12">
-				<v-img
-					:src="require('../assets/logo.svg')"
-					class="my-3"
-					contain
-					height="200"
-				/>
-			</v-col>
-
 			<v-col class="mb-4">
 				<h1 class="display-2 font-weight-bold mb-3">Welcome to Vuetify</h1>
 
@@ -36,6 +27,43 @@
 						{{ next.text }}
 					</a>
 				</v-row>
+			</v-col>
+			<v-col class="mb-5 form-wrapper" cols="12">
+				<v-form
+					class="form"
+					v-model="valid"
+					ref="form"
+					@submit.prevent="signIn"
+				>
+					<v-row>
+						<v-col cols="12" md="6">
+							<BaseInput
+								v-model="user.email"
+								id="email"
+								:type="'email'"
+								label="Email"
+								:required="true"
+								:counter="false"
+							/>
+						</v-col>
+						<v-col cols="12" md="6">
+							<BaseInput
+								v-model="user.password"
+								id="password"
+								:type="'password'"
+								label="Password"
+								:required="true"
+								:counter="false"
+								:novalidate="true"
+							/>
+						</v-col>
+					</v-row>
+					<div class="center">
+						<v-btn class="mr-4 sign-in" color="primary" type="submit">
+							Sign In
+						</v-btn>
+					</div>
+				</v-form>
 			</v-col>
 			<v-row class="button-row" align="center" justify="center">
 				<v-btn depressed color="primary"> Primary </v-btn>
@@ -79,10 +107,17 @@
 </template>
 
 <script>
+// import * as auth from '../services/authService';
+
 export default {
 	name: 'HelloWorld',
 
 	data: () => ({
+		valid: false,
+		user: {
+			email: '',
+			password: '',
+		},
 		ecosystem: [
 			{
 				text: 'vuetify-loader',
@@ -134,10 +169,24 @@ export default {
 			},
 		],
 	}),
+	methods: {
+		signIn() {
+			this.$refs.form.validate();
+			if (this.valid) {
+				console.log(this.user);
+				// auth.signIn(this.user);
+			}
+		},
+	},
 };
 </script>
 <style lang="scss" scoped>
 .button-row .v-btn {
 	margin: 5px;
+}
+.form {
+	max-width: 750px;
+	text-align: left;
+	margin: auto;
 }
 </style>

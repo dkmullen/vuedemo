@@ -33,6 +33,8 @@
 
 <script>
 import HelloWorld from './components/HelloWorld';
+// eslint-disable-next-line no-unused-vars
+import Amplify, { Auth } from 'aws-amplify';
 
 export default {
 	name: 'App',
