@@ -66,10 +66,15 @@
 				</v-form>
 			</v-col>
 			<v-row class="button-row" align="center" justify="center">
-				<v-btn depressed color="primary"> Primary </v-btn>
-				<v-btn depressed color="secondary"> Secondary </v-btn>
-				<v-btn depressed color="accent"> Accent </v-btn>
-				<v-btn depressed color="error"> Error </v-btn>
+				<v-btn
+					v-for="button in buttons"
+					:key="button.text"
+					class="ma-2"
+					depressed
+					:color="button.color"
+				>
+					{{ button.text }}
+				</v-btn>
 			</v-row>
 			<v-col class="mb-5" cols="12">
 				<h2 class="headline font-weight-bold mb-3">Important Links</h2>
@@ -114,6 +119,12 @@ export default {
 
 	data: () => ({
 		valid: false,
+		buttons: [
+			{ color: 'primary', text: 'Primary' },
+			{ color: 'secondary', text: 'Secondary' },
+			{ color: 'accent', text: 'Accent' },
+			{ color: 'error', text: 'Error' },
+		],
 		user: {
 			email: '',
 			password: '',
@@ -181,9 +192,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.button-row .v-btn {
-	margin: 5px;
-}
 .form {
 	max-width: 750px;
 	text-align: left;
