@@ -31,7 +31,7 @@ export default {
 	},
 	props: {
 		rows: { type: String, default: '4' },
-		maxlen: { type: Number, default: '' },
+		maxlen: { type: Number, default: 100 },
 		id: { type: String, default: '' },
 	},
 };
