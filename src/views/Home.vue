@@ -115,7 +115,7 @@
 // import * as auth from '../services/authService';
 
 export default {
-	name: 'HelloWorld',
+	name: 'Home',
 
 	data: () => ({
 		valid: false,

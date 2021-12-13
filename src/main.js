@@ -4,6 +4,9 @@ import vuetify from './plugins/vuetify';
 import upperFirst from 'lodash/upperFirst';
 import camelCase from 'lodash/camelCase';
 
+import router from './router';
+import store from './store';
+
 Vue.config.productionTip = false;
 
 // Makes a global component out of any in /components/shared named Base*.vue
@@ -25,5 +28,7 @@ requireComponent.keys().forEach((fileName) => {
 
 new Vue({
 	vuetify,
+	router,
+	store,
 	render: (h) => h(App),
 }).$mount('#app');
