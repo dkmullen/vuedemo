@@ -1,16 +1,19 @@
 <template>
   <div>
-    <canvas id="donutChart"></canvas>
+    <canvas :id="`donutChart-${chartID}`"></canvas>
   </div>
 </template>
 
 <script>
 import Chart from 'chart.js';
+import UniqueID from '../features/UniqueID';
 
 export default {
   name: 'DonutChart',
   data() {
     return {
+      chartID: '',
+      chartType: 'doughnut',
       chartData: {
         labels: ['Red', 'Blue', 'Yellow'],
         datasets: [
@@ -26,15 +29,19 @@ export default {
           },
         ],
       },
+      options: {}
     };
   },
   mounted() {
+    this.chartID = UniqueID().getID().toString();
     const config = {
-      type: 'doughnut',
+      type: this.chartType,
       data: this.chartData,
-      options: {},
+      options: this.options,
     };
-    const myChart = new Chart(document.getElementById('donutChart'), config);
+    this.$nextTick(() => {
+      const myChart = new Chart(document.getElementById(`donutChart-${this.chartID}`), config);
+    })  
   },
 };
 </script>

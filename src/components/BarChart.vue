@@ -1,16 +1,19 @@
 <template>
   <div>
-    <canvas id="barChart"></canvas>
+    <canvas :id="`barChart-${chartID}`"></canvas>
   </div>
 </template>
 
 <script>
 import Chart from 'chart.js';
+import UniqueID from '../features/UniqueID';
 
 export default {
   name: 'BarChart',
   data() {
     return {
+      chartID: '',
+      chartType: 'bar',
       chartData: {
         labels: ['January', 'February', 'March', 'April', 'May', 'June'],
         datasets: [
@@ -39,21 +42,25 @@ export default {
           },
         ],
       },
+      options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        }
     };
   },
   mounted() {
+    this.chartID = UniqueID().getID().toString();
     const config = {
-      type: 'bar',
+      type: this.chartType,
       data: this.chartData,
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-          },
-        },
-      },
+      options: this.options,
     };
-    const myChart = new Chart(document.getElementById('barChart'), config);
+    this.$nextTick(() => {
+      const myChart = new Chart(document.getElementById(`barChart-${this.chartID}`), config);
+    }) 
   },
 };
 </script>

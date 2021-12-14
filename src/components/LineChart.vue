@@ -1,16 +1,19 @@
 <template>
   <div>
-    <canvas id="lineChart"></canvas>
+    <canvas :id="`lineChart-${chartID}`"></canvas>
   </div>
 </template>
 
 <script>
 import Chart from 'chart.js';
+import UniqueID from '../features/UniqueID';
 
 export default {
   name: 'LineChart',
   data() {
     return {
+      chartID: '',
+      chartType: 'line',
       chartData: {
         labels: ['January', 'February', 'March', 'April', 'May', 'June'],
         datasets: [
@@ -22,15 +25,19 @@ export default {
           },
         ],
       },
+      options: {}
     };
   },
   mounted() {
+    this.chartID = UniqueID().getID().toString();
     const config = {
-      type: 'line',
+      type: this.chartType,
       data: this.chartData,
-      options: {},
+      options: this.options,
     };
-    const myChart = new Chart(document.getElementById('lineChart'), config);
+    this.$nextTick(() => {
+      const myChart = new Chart(document.getElementById(`lineChart-${this.chartID}`), config);
+    })
   },
 };
 </script>
