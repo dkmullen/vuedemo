@@ -6,7 +6,7 @@
 
 <script>
 import Chart from 'chart.js';
-import UniqueID from '../features/UniqueID';
+import UniqueID from '../../features/UniqueID';
 
 export default {
   name: 'DonutChart',
@@ -29,7 +29,7 @@ export default {
           },
         ],
       },
-      options: {}
+      options: {},
     };
   },
   mounted() {
@@ -40,8 +40,11 @@ export default {
       options: this.options,
     };
     this.$nextTick(() => {
-      const myChart = new Chart(document.getElementById(`donutChart-${this.chartID}`), config);
-    })  
+      const myChart = new Chart(
+        document.getElementById(`donutChart-${this.chartID}`),
+        config
+      );
+    });
   },
 };
 </script>

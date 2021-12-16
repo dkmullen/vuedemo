@@ -6,10 +6,11 @@
 
 <script>
 import Chart from 'chart.js';
-import UniqueID from '../features/UniqueID';
+import UniqueID from '../../features/UniqueID';
 
 export default {
   name: 'BarChart',
+  props: ['chartLabels', 'chartValues'],
   data() {
     return {
       chartID: '',
@@ -43,12 +44,12 @@ export default {
         ],
       },
       options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
+        scales: {
+          y: {
+            beginAtZero: true,
           },
-        }
+        },
+      },
     };
   },
   mounted() {
@@ -59,8 +60,11 @@ export default {
       options: this.options,
     };
     this.$nextTick(() => {
-      const myChart = new Chart(document.getElementById(`barChart-${this.chartID}`), config);
-    }) 
+      const myChart = new Chart(
+        document.getElementById(`barChart-${this.chartID}`),
+        config
+      );
+    });
   },
 };
 </script>

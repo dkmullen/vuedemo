@@ -6,14 +6,14 @@
         <LineChart />
       </v-col>
       <v-col cols="12" md="6">
-        <BarChart />
+        <WeatherWidget />
       </v-col>
     </v-row>
     <v-row>
       <v-col cols="12" md="6">
         <DonutChart />
       </v-col>
-            <v-col cols="12" md="6">
+      <v-col cols="12" md="6">
         <LineChart />
       </v-col>
     </v-row>
@@ -21,22 +21,20 @@
 </template>
 
 <script>
-import LineChart from '../components/LineChart.vue';
-import BarChart from '../components/BarChart.vue';
-import DonutChart from '../components/DonutChart.vue';
+import LineChart from '../components/charts/LineChart.vue';
+import DonutChart from '../components/charts/DonutChart.vue';
+import WeatherWidget from '../components/widgets/WeatherWidget.vue';
 import { mapActions, MapActions } from 'vuex';
 
 export default {
-  components: { LineChart, BarChart, DonutChart },
-  methods: { ...mapActions(['getWeather'])},
+  components: { LineChart, WeatherWidget, DonutChart },
+  methods: { ...mapActions(['getWeather']) },
 
   data() {
     return {};
   },
   created() {
-    this.$nextTick(() => {
-      this.getWeather(2673722);
-    })
+    // this.getWeather(2673722);
   },
 };
 </script>
