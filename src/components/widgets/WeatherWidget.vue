@@ -1,6 +1,10 @@
 <template>
   <div>
-    <BarChart :chartLabels="cities" :chartValues="temps" />
+    <BarChart
+      :chartLabels="cities"
+      :chartValues="temps"
+      :chartTitle="'Temperatures from favorite cities (F)'"
+    />
   </div>
 </template>
 
@@ -19,10 +23,13 @@ export default {
   created() {
     this.getWeather([
       { name: 'Stockholm', code: 2673722 },
-      { name: 'Nelson', code: 2186280 },
+      { name: 'Nelson, NZ', code: 2186280 },
       { name: 'Akron', code: 5145476 },
       { name: 'Denver', code: 2673722 },
       { name: 'Tokyo', code: 1850147 },
+      { name: 'Melbourne', code: 2158177 },
+      { name: 'Moscow', code: 524894 },
+      { name: 'Edmonton', code: 5946768 },
     ]);
   },
 };

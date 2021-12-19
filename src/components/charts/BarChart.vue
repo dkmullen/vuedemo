@@ -10,61 +10,62 @@ import UniqueID from '../../features/UniqueID';
 
 export default {
   name: 'BarChart',
-  props: ['chartLabels', 'chartValues'],
+  props: ['chartLabels', 'chartValues', 'chartTitle'],
   data() {
     return {
       chartID: '',
       chartType: 'bar',
       chartData: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+        labels: [],
         datasets: [
           {
-            label: 'My Second dataset',
-            backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(255, 159, 64, 0.2)',
-              'rgba(255, 205, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
-              'rgba(201, 203, 207, 0.2)',
-            ],
-            borderColor: [
-              'rgb(255, 99, 132)',
-              'rgb(255, 159, 64)',
-              'rgb(255, 205, 86)',
-              'rgb(75, 192, 192)',
-              'rgb(54, 162, 235)',
-              'rgb(153, 102, 255)',
-              'rgb(201, 203, 207)',
-            ],
-            borderWidth: 1,
-            data: [65, 59, 80, 81, 56, 55, 40],
+            label: '',
+            backgroundColor: [],
+            borderColor: [],
+            borderWidth: 0,
+            data: [],
           },
         ],
       },
       options: {
         scales: {
-          y: {
-            beginAtZero: true,
-          },
+          yAxes: [
+            {
+              ticks: {
+                min: -20,
+                max: 120,
+              },
+            },
+          ],
         },
       },
     };
   },
   mounted() {
-    this.chartID = UniqueID().getID().toString();
-    const config = {
-      type: this.chartType,
-      data: this.chartData,
-      options: this.options,
-    };
-    this.$nextTick(() => {
-      const myChart = new Chart(
-        document.getElementById(`barChart-${this.chartID}`),
-        config
-      );
-    });
+    setTimeout(() => {
+      this.chartID = UniqueID().getID().toString();
+      this.chartData.labels = this.chartLabels;
+      this.chartData.datasets[0].data = this.chartValues;
+      this.chartData.datasets[0].label = this.chartTitle;
+      for (let i = 0; i < this.chartValues.length; i++) {
+        if (i % 2 === 0) {
+          this.chartData.datasets[0].backgroundColor.push('#055052');
+        } else {
+          this.chartData.datasets[0].backgroundColor.push('#53B8BB');
+        }
+      }
+      const config = {
+        type: this.chartType,
+        data: this.chartData,
+        options: this.options,
+      };
+      this.$nextTick(() => {
+        const myChart = new Chart(
+          document.getElementById(`barChart-${this.chartID}`),
+          config
+        );
+      });
+    }, 2000);
   },
 };
 </script>
