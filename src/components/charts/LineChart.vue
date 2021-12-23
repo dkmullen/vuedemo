@@ -18,9 +18,9 @@ export default {
         labels: ['January', 'February', 'March', 'April', 'May', 'June'],
         datasets: [
           {
-            label: 'My First dataset',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
+            label: 'Monthly data',
+            backgroundColor: '#055052',
+            borderColor: '#53B8BB',
             data: [0, 10, 5, 2, 20, 30, 45],
           },
         ],

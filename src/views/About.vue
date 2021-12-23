@@ -6,7 +6,18 @@
         <LineChart />
       </v-col>
       <v-col cols="12" md="6">
-        <WeatherWidget />
+        <BarChart
+          :chartLabels="[
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+          ]"
+          :chartTitle="'Monthly comparison'"
+          :chartValues="[0, 10, 5, 2, 20, 30, 45]"
+        />
       </v-col>
     </v-row>
     <v-row>
@@ -23,11 +34,11 @@
 <script>
 import LineChart from '../components/charts/LineChart.vue';
 import DonutChart from '../components/charts/DonutChart.vue';
-import WeatherWidget from '../components/widgets/WeatherWidget.vue';
-import { mapActions, MapActions } from 'vuex';
+import BarChart from '../components/charts/BarChart.vue';
+import { mapActions } from 'vuex';
 
 export default {
-  components: { LineChart, WeatherWidget, DonutChart },
+  components: { LineChart, BarChart, DonutChart },
   methods: { ...mapActions(['getWeather']) },
 
   data() {

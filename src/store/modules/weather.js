@@ -2,10 +2,14 @@ import api from '../../services/apiService';
 
 const state = {
   temps: [],
+  fullWeather: [],
 };
 const mutations = {
-  setTemps(city) {
+  setTemps(state, city) {
     state.temps.push(city);
+  },
+  setFullWeather(state, weather) {
+    state.fullWeather = weather;
   },
 };
 const actions = {
@@ -19,8 +23,31 @@ const actions = {
         const temperature = Math.round(
           ((response.data.main.temp - 273.15) * 9) / 5 + 32
         );
-        state.temps.push({ name: city.name, temp: temperature });
+        const cityObj = { name: city.name, temp: temperature };
+        commit('setTemps', cityObj);
       }
+    }
+  },
+
+  async getFullWeather({ commit }, city) {
+    console.log(city.code);
+    const response = await api.getWeather(city.code).catch((err) => {
+      console.log(err);
+    });
+    if (response) {
+      console.log(response);
+      const temperature = Math.round(
+        ((response.data.main.temp - 273.15) * 9) / 5 + 32
+      );
+      const weatherObj = {
+        name: city.name,
+        temperature,
+        condition: response.data.weather[0].description,
+        humidity: response.data.main.humidity,
+        timezone: response.data.timezone,
+      };
+      commit('setFullWeather', weatherObj);
+      console.log(state.fullWeather);
     }
   },
 };

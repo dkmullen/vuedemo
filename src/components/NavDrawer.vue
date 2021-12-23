@@ -45,7 +45,7 @@ export default {
       items: [
         { title: 'Home', icon: 'mdi-home', link: 'Home' },
         { title: 'About', icon: 'mdi-information', link: 'About' },
-        { title: 'Weather', icon: 'mdi-umbrella', link: 'Home' },
+        { title: 'Weather', icon: 'mdi-umbrella', link: 'Weather' },
         { title: 'Run Calculator', icon: 'mdi-run', link: 'Home' },
       ],
     };
