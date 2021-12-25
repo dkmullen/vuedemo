@@ -1,13 +1,11 @@
 <template>
-  <div>
-    <weather-card :cityName="'Nelson NZ'" :cityCode="'2186280'"></weather-card>
-    <weather-card :cityName="'Stockholm'" :cityCode="'2673722'"></weather-card>
-    <weather-card :cityName="'Akron'" :cityCode="'5145476'"></weather-card>
-    <weather-card :cityName="'Denver'" :cityCode="'2673722'"></weather-card>
-    <weather-card :cityName="'Tokyo'" :cityCode="'1850147'"></weather-card>
-    <weather-card :cityName="'Melbourne'" :cityCode="'2158177'"></weather-card>
-    <weather-card :cityName="'Moscow'" :cityCode="'524894'"></weather-card>
-    <weather-card :cityName="'Edmonton'" :cityCode="'5946768'"></weather-card>
+  <div id="weather-grid">
+    <weather-card
+      v-for="city in cities"
+      :key="city.code"
+      :cityName="city.name"
+      :cityCode="city.code"
+    ></weather-card>
   </div>
 </template>
 
@@ -15,7 +13,31 @@
 import WeatherCard from '../components/widgets/WeatherCard.vue';
 export default {
   components: { WeatherCard },
+  data() {
+    return {
+      cities: [
+        { name: 'Nelson NZ', code: '2186280' },
+        { name: 'Stockholm', code: '2673722' },
+        { name: 'Akron', code: '5145476' },
+        { name: 'Denver', code: '5419384' },
+        { name: 'Tokyo', code: '1850147' },
+        { name: 'Melbourne', code: '2158177' },
+        { name: 'Moscow', code: '524894' },
+        { name: 'Edmonton', code: '5946768' },
+      ],
+    };
+  },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+#weather-grid {
+  display: grid;
+  width: 90vw;
+  max-width: 820px;
+  grid-template-columns: repeat(2, 50%);
+  grid-template-rows: auto;
+  grid-gap: 16px;
+  margin: auto;
+}
+</style>
