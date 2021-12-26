@@ -25,22 +25,38 @@
       </v-list-item>
       <v-card-text>
         <v-row align="center">
-          <v-col class="text-h2" cols="8">
-            {{ weatherObj.temperature }}&deg;F
-          </v-col>
-          <v-col cols="4">
-            <p>Max/Min: {{ weatherObj.tempMax }}/{{ weatherObj.tempMin }}</p>
+          <v-col cols="12">
+            <span class="text-h2">{{ weatherObj.temperature }}&deg;F</span>
+            <p>
+              Feels like: {{ weatherObj.feelsLike }} - Max/Min:
+              {{ weatherObj.tempMax }}/{{ weatherObj.tempMin }}
+            </p>
           </v-col>
         </v-row>
       </v-card-text>
-      <v-list-item>
-        <v-list-item-icon>
-          <v-icon>mdi-cloud-download</v-icon>
-        </v-list-item-icon>
-        <v-list-item-subtitle
-          >Humidity: {{ weatherObj.humidity }}%</v-list-item-subtitle
-        >
-      </v-list-item>
+      <v-list>
+        <v-list-item>
+          <v-list-item-icon>
+            <v-icon>mdi-weather-cloudy</v-icon>
+          </v-list-item-icon>
+          <v-list-item-subtitle
+            >Humidity: {{ weatherObj.humidity }}%</v-list-item-subtitle
+          >
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-icon>
+            <v-icon>mdi-weather-windy-variant</v-icon>
+          </v-list-item-icon>
+          <v-list-item-subtitle
+            >Wind: {{ weatherObj.wind }} mph</v-list-item-subtitle
+          >
+        </v-list-item>
+      </v-list>
+      <v-divider></v-divider>
+
+      <v-card-actions>
+        <v-btn text> Full Report </v-btn>
+      </v-card-actions>
     </v-card>
   </div>
 </template>
@@ -68,24 +84,20 @@ export default {
       });
       if (response) {
         console.log(response.data);
-        // const temperature = Math.round(
-        //   ((response.data.main.temp - 273.15) * 9) / 5 + 32
-        // );
         this.weatherObj = {
           name: this.cityName,
-          temperature: this.convertTemperature(response.data.main.temp),
-          tempMax: this.convertTemperature(response.data.main.temp_max),
-          tempMin: this.convertTemperature(response.data.main.temp_min),
+          temperature: Math.round(response.data.main.temp),
+          tempMax: Math.round(response.data.main.temp_max),
+          tempMin: Math.round(response.data.main.temp_min),
+          feelsLike: Math.round(response.data.main.feels_like),
           condition: response.data.weather[0].description,
           iconPath: `http://openweathermap.org/img/w/${response.data.weather[0].icon}.png`,
           humidity: response.data.main.humidity,
           timezone: response.data.timezone,
           time: this.now + response.data.timezone,
+          wind: Math.round(response.data.wind.speed),
         };
       }
-    },
-    convertTemperature(temp) {
-      return Math.round(((temp - 273.15) * 9) / 5 + 32);
     },
   },
   created() {
