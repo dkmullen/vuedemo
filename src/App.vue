@@ -1,17 +1,15 @@
 <template>
   <v-app>
     <v-app-bar app color="primary" dark>
-      <div class="d-flex align-center">
-        <router-link to="/">
-          <v-img
-            alt="Cupcake Logo"
-            class="shrink mr-2"
-            contain
-            src="./assets/cupcake.png"
-            transition="scale-transition"
-            width="40"
-          />
-        </router-link>
+      <div class="d-flex align-center logo" @click="goHome">
+        <v-img
+          alt="Cupcake Logo"
+          class="shrink mr-2"
+          contain
+          src="./assets/cupcake.png"
+          transition="scale-transition"
+          width="40"
+        />
         <div class="logo-text">Vue Demo</div>
       </div>
 
@@ -51,10 +49,16 @@ export default {
     toggleNav() {
       this.$refs.drawer.toggleDrawer();
     },
+    goHome() {
+      this.$router.push({ name: 'Home' });
+    },
   },
 };
 </script>
 <style lang="scss">
+.logo {
+  cursor: pointer;
+}
 .logo-text {
   font-size: 2rem;
   font-weight: 300;

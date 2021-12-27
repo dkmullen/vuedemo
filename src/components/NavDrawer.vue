@@ -7,11 +7,11 @@
     <v-navigation-drawer v-model="drawer" absolute temporary right>
       <v-list-item>
         <v-list-item-avatar>
-          <v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
+          <v-img src="../assets/dkm.jpg"></v-img>
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title>John Leider</v-list-item-title>
+          <v-list-item-title>Dennis Mullen</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
@@ -44,7 +44,7 @@ export default {
       drawer: null,
       items: [
         { title: 'Home', icon: 'mdi-home', link: 'Home' },
-        { title: 'About', icon: 'mdi-information', link: 'About' },
+        { title: 'Charts', icon: 'mdi-chart-box', link: 'Charts' },
         { title: 'Weather', icon: 'mdi-umbrella', link: 'Weather' },
         { title: 'Run Calculator', icon: 'mdi-run', link: 'Home' },
       ],

@@ -24,6 +24,7 @@ export default {
         { name: 'Melbourne', code: '2158177' },
         { name: 'Moscow', code: '524894' },
         { name: 'Edmonton', code: '5946768' },
+        { name: 'Kingston TN', code: '4634671' },
       ],
     };
   },
