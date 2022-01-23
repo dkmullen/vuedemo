@@ -53,10 +53,20 @@
         </v-btn>
       </v-row> -->
     </v-row>
+    <ul>
+      <li v-for="item in articles" :key="item.id">
+        <a :href="item.url" target="_blank">
+          <strong>{{ item.title }}</strong>
+        </a>
+        - {{ item.by }} - {{ item.type }}
+      </li>
+    </ul>
   </v-container>
 </template>
 
 <script>
+import api from '../services/apiService';
+
 export default {
   name: 'Home',
 
@@ -72,6 +82,8 @@ export default {
       email: '',
       message: '',
     },
+    newsList: null,
+    articles: [],
   }),
   methods: {
     signIn() {
@@ -81,6 +93,26 @@ export default {
         // auth.signIn(this.user);
       }
     },
+    async getNewsList() {
+      const newsList = await api.getNewsList().catch((err) => {
+        console.error(err);
+      });
+      if (newsList) {
+        this.newsList = newsList.data;
+        const slicedArray = this.newsList.slice(0, 9);
+        slicedArray.forEach((i) => {
+          this.getNewsItem(i);
+        });
+      }
+    },
+    async getNewsItem(i) {
+      const newsItem = await api.getNewsItem(i);
+      this.articles.push(newsItem.data);
+      console.log(newsItem.data);
+    },
+  },
+  created() {
+    this.getNewsList();
   },
 };
 </script>
