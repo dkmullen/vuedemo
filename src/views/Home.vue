@@ -66,6 +66,7 @@
 
 <script>
 import api from '../services/apiService';
+import Compress from 'compress.js';
 
 export default {
   name: 'Home',
@@ -86,11 +87,48 @@ export default {
     articles: [],
   }),
   methods: {
+    // signIn() {
+    //   this.$refs.form.validate();
+    //   if (this.valid) {
+    //     console.log(this.user);
+    //     // auth.signIn(this.user);
+    //   }
+    // },
     signIn() {
       this.$refs.form.validate();
       if (this.valid) {
-        console.log(this.user);
-        // auth.signIn(this.user);
+        // Resize and save a photo
+        console.log(this.meFile);
+        const compress = new Compress();
+        let list = [this.meFile];
+        compress
+          .compress(list, {
+            // size: 4, // the max size in MB, defaults to 2MB
+            quality: 0.7, // the quality of the image, max is 1,
+            // maxWidth: 1920, // the max width of the output image, defaults to 1920px
+            // maxHeight: 1920, // the max height of the output image, defaults to 1920px
+            resize: false, // defaults to true, set false if you do not want to resize the image width and height
+            rotate: false, // See the rotation section below
+          })
+          .then((data) => {
+            // returns an array of compressed images
+            console.log(data);
+            const img1 = data[0];
+            const base64str = img1.data;
+            const imgExt = img1.ext;
+            const file = Compress.convertBase64ToFile(base64str, imgExt);
+            console.log(file);
+            var a = document.createElement('a'),
+              url = URL.createObjectURL(file);
+            a.href = url;
+            a.download = this.meFile.name;
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(function () {
+              document.body.removeChild(a);
+              window.URL.revokeObjectURL(url);
+            }, 0);
+          });
       }
     },
     async getNewsList() {
