@@ -6,7 +6,8 @@
         <LineChart />
       </v-col>
       <v-col cols="12" md="6">
-        <BarChart
+        <LineChart-nf />
+        <!-- <BarChart
           :chartLabels="[
             'January',
             'February',
@@ -17,28 +18,29 @@
           ]"
           :chartTitle="'Monthly comparison'"
           :chartValues="[0, 10, 5, 2, 20, 30, 45]"
-        />
+        /> -->
       </v-col>
     </v-row>
-    <v-row>
+    <!-- <v-row>
       <v-col cols="12" md="6">
         <DonutChart />
       </v-col>
       <v-col cols="12" md="6">
         <LineChart />
       </v-col>
-    </v-row>
+    </v-row> -->
   </v-container>
 </template>
 
 <script>
 import LineChart from '../components/charts/LineChart.vue';
-import DonutChart from '../components/charts/DonutChart.vue';
-import BarChart from '../components/charts/BarChart.vue';
+import LineChartNf from '../components/charts/LineChartNf.vue';
+// import DonutChart from '../components/charts/DonutChart.vue';
+// import BarChart from '../components/charts/BarChart.vue';
 import { mapActions } from 'vuex';
 
 export default {
-  components: { LineChart, BarChart, DonutChart },
+  components: { LineChart, LineChartNf },
   methods: { ...mapActions(['getWeather']) },
 
   data() {
